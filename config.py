@@ -1,9 +1,10 @@
+import os
 from pathlib import Path
 
 env_path = Path(".") / ".env"
 
 
-BOT_TOKEN = "8644238592:AAEdvQqmMHfWdiPzfEW_jwJks366V_XrJKI"
+BOT_TOKEN = os.environ.get("BOT_TOKEN", "")
 
 BOT_NAME = ""
 BOT_VERSION = "0.0.1"
