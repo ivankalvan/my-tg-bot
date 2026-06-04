@@ -6,6 +6,23 @@ from threading import Thread
 from random import choice
 from telebot import types
 
+
+app = Flask("")
+
+@app.route("/")
+def index():
+    return "OK"
+@app.route("/health")
+def health_check():
+    return "bot is on"
+
+def run_web_server():
+    port = int(os.environ.get("PORT", 8080))
+    app.run(host="0.0.0.0", port=port)
+
+Thread(target=run_web_server).start()
+
+
 bot = telebot.TeleBot(config.BOT_TOKEN)
 
 total = 1
@@ -150,18 +167,6 @@ def callback_message(callback):
         bot.delete_message(callback.message.chat.id, callback.message.message_id - 1)
 
 
-app = Flask("")
-
-@app.route("/")
-@app.route("/health")
-def health_check():
-    return "bot is on"
-
-def run_web_server():
-    port = int(os.environ.get("PORT", 8080))
-    app.run(host="0.0.0.0", port=port)
-
-Thread(target=run_web_server).start()
 
 
 bot.polling(none_stop=True)
